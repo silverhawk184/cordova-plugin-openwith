@@ -140,7 +140,7 @@ class Serializer {
         if (uri == null) {
             return null;
         }
-		String shareText = uri.toString();
+		final String shareText = contentResolver.toString();
         final JSONObject item = toJSONObject(
                 contentResolver,
                 shareText);
