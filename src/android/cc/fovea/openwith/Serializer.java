@@ -35,6 +35,9 @@ class Serializer {
             items = itemsFromClipData(contentResolver, intent.getClipData());
         }
         if (items == null || items.length() == 0) {
+            items = itemsFromText(contentResolver, intent.getText());
+        }
+        if (items == null || items.length() == 0) {
             items = itemsFromExtras(contentResolver, intent.getExtras());
         }
         if (items == null || items.length() == 0) {
@@ -122,6 +125,25 @@ class Serializer {
         final JSONObject item = toJSONObject(
                 contentResolver,
                 uri);
+        if (item == null) {
+            return null;
+        }
+        final JSONObject[] items = new JSONObject[1];
+        items[0] = item;
+        return new JSONArray(items);
+    }
+	
+	public static JSONArray itemsFromText(
+            final ContentResolver contentResolver,
+            final Uri uri)
+            throws JSONException {
+        if (uri == null) {
+            return null;
+        }
+		String shareText = uri.toString();
+        final JSONObject item = toJSONObject(
+                contentResolver,
+                shareText);
         if (item == null) {
             return null;
         }
