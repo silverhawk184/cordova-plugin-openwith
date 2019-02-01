@@ -116,7 +116,8 @@ class Serializer {
             final int clipItemCount = clipData.getItemCount();
             JSONObject[] items = new JSONObject[clipItemCount];
             for (int i = 0; i < clipItemCount; i++) {
-                items[i] = toJSONObject2(contentResolver, clipData.getItemAt(i).getUri(), clipData.getItemAt(i));
+              //  items[i] = toJSONObject2(contentResolver, clipData.getItemAt(i).getUri(), clipData.getItemAt(i));
+                items[i] = toJSONObject(contentResolver, clipData.getItemAt(i).getUri());
             }
             return new JSONArray(items);
         }
