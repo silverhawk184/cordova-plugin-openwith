@@ -28,15 +28,11 @@ class Serializer {
      */
     public static JSONObject toJSONObject(
             final ContentResolver contentResolver,
-            final Intent intent,
-            final Intent intentRaw)
+            final Intent intent)
             throws JSONException {
         JSONArray items = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             items = itemsFromClipData(contentResolver, intent.getClipData());
-        }
-        if (items == null || items.length() == 0) {
-            items = itemsFromText(contentResolver, intentRaw.getText());
         }
         if (items == null || items.length() == 0) {
             items = itemsFromExtras(contentResolver, intent.getExtras());
@@ -85,7 +81,7 @@ class Serializer {
             final int clipItemCount = clipData.getItemCount();
             JSONObject[] items = new JSONObject[clipItemCount];
             for (int i = 0; i < clipItemCount; i++) {
-                items[i] = toJSONObject(contentResolver, clipData.getItemAt(i).getUri(), clipData.getItemAt(i));
+                items.push(toJSONObject(contentResolver, clipData.getItemAt(i).getUri()));
             }
             return new JSONArray(items);
         }
@@ -126,25 +122,6 @@ class Serializer {
         final JSONObject item = toJSONObject(
                 contentResolver,
                 uri);
-        if (item == null) {
-            return null;
-        }
-        final JSONObject[] items = new JSONObject[1];
-        items[0] = item;
-        return new JSONArray(items);
-    }
-	
-	public static JSONArray itemsFromText(
-            final ContentResolver contentResolver,
-            final Uri uri)
-            throws JSONException {
-        if (uri == null) {
-            return null;
-        }
-		final String shareText = contentResolver.toString();
-        final JSONObject item = toJSONObject(
-                contentResolver,
-                shareText);
         if (item == null) {
             return null;
         }
