@@ -56,7 +56,10 @@ class Serializer {
             final ClipData.Item intentRaw)
             throws JSONException {
         JSONArray items = null;
-        if (items == null || items.length() == 0) {
+       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            items = itemsFromClipData(contentResolver, intent.getClipData());
+        }
+         if (items == null || items.length() == 0) {
             items = itemsFromExtras(contentResolver, intent.getExtras());
         }
         if (items == null || items.length() == 0) {
