@@ -71,7 +71,7 @@ class Serializer {
         final JSONObject action = new JSONObject();
         action.put("action", translateAction(intent.getAction()));
         action.put("exit", readExitOnSent(intent.getExtras()));
-        
+        /*
 		if (intentRaw.getText() != null) {
 			String shareText = intentRaw.getText().toString();
 				if (shareText.contains("http:/") || shareText.contains("https:/")) {
@@ -80,7 +80,7 @@ class Serializer {
 				}
 			}
 		}
-		
+		*/
 		action.put("items", items);
         return action;
     }
