@@ -51,7 +51,7 @@ class Serializer {
     }
 	
 //NS------------DUPLICATE toJSONObject function so to expose the raw intent item -----------	
-	public static JSONObject toJSONObject2(
+	public static JSONObject toJSONObjectNS(
             final ContentResolver contentResolver,
             ClipData.Item intentRaw) //NS exposed raw intent item
             throws JSONException {
@@ -121,7 +121,7 @@ class Serializer {
             for (int i = 0; i < clipItemCount; i++) {
 				//NS -- USE THE NEW FUNCTION THAT TAKES THE RAW Intent item
 				//items[i] = toJSONObject(contentResolver, clipData.getItemAt(i).getUri());
-				items[i] = toJSONObject2(contentResolver, clipData.getItemAt(i)); //NS do the ".getUri()" in the function
+				items[i] = toJSONObjectNS(contentResolver, clipData.getItemAt(i)); //NS do the ".getUri()" in the function
             }
             return new JSONArray(items);
         }
