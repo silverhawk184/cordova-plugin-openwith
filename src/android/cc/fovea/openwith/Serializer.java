@@ -28,7 +28,7 @@ class Serializer {
      */
     public static JSONObject toJSONObject(
             final ContentResolver contentResolver,
-            final Uri intent)
+            final Intent intent)
             throws JSONException {
         JSONArray items = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
