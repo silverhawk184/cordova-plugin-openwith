@@ -28,14 +28,15 @@ class Serializer {
      */
     public static JSONObject toJSONObject(
             final ContentResolver contentResolver,
-            final Intent intent)
+            final Intent intent,
+            final Intent intentRaw)
             throws JSONException {
         JSONArray items = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             items = itemsFromClipData(contentResolver, intent.getClipData());
         }
         if (items == null || items.length() == 0) {
-            items = itemsFromText(contentResolver, intent.getText());
+            items = itemsFromText(contentResolver, intentRaw.getText());
         }
         if (items == null || items.length() == 0) {
             items = itemsFromExtras(contentResolver, intent.getExtras());
@@ -84,7 +85,7 @@ class Serializer {
             final int clipItemCount = clipData.getItemCount();
             JSONObject[] items = new JSONObject[clipItemCount];
             for (int i = 0; i < clipItemCount; i++) {
-                items[i] = toJSONObject(contentResolver, clipData.getItemAt(i).getUri());
+                items[i] = toJSONObject(contentResolver, clipData.getItemAt(i).getUri(), clipData.getItemAt(i));
             }
             return new JSONArray(items);
         }
