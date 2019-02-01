@@ -46,7 +46,39 @@ class Serializer {
         final JSONObject action = new JSONObject();
         action.put("action", translateAction(intent.getAction()));
         action.put("exit", readExitOnSent(intent.getExtras()));
-        action.put("items", items);
+		action.put("items", items);
+        return action;
+    }
+
+	public static JSONObject toJSONObject2(
+            final ContentResolver contentResolver,
+            final Intent intent,
+            final ClipData.Item intentRaw)
+            throws JSONException {
+        JSONArray items = null;
+        if (items == null || items.length() == 0) {
+            items = itemsFromExtras(contentResolver, intent.getExtras());
+        }
+        if (items == null || items.length() == 0) {
+            items = itemsFromData(contentResolver, intent.getData());
+        }
+        if (items == null) {
+            return null;
+        }
+        final JSONObject action = new JSONObject();
+        action.put("action", translateAction(intent.getAction()));
+        action.put("exit", readExitOnSent(intent.getExtras()));
+        
+		if (intentRaw.getText() != null) {
+			String shareText = intentRaw.getText().toString();
+				if (shareText.contains("http:/") || shareText.contains("https:/")) {
+					shareText = shareText.substring(shareText.indexOf("http"));
+					action.put("link", URI.create(shareText));
+				}
+			}
+		}
+		
+		action.put("items", items);
         return action;
     }
 
@@ -81,7 +113,7 @@ class Serializer {
             final int clipItemCount = clipData.getItemCount();
             JSONObject[] items = new JSONObject[clipItemCount];
             for (int i = 0; i < clipItemCount; i++) {
-                items.push(toJSONObject(contentResolver, clipData.getItemAt(i).getUri()));
+                items[i] = toJSONObject2(contentResolver, clipData.getItemAt(i).getUri(), clipData.getItemAt(i));
             }
             return new JSONArray(items);
         }
