@@ -146,8 +146,9 @@ class Serializer {
 			JSONObject[] items = new JSONObject[clipItemCount];
 			for (int i = 0; i < clipItemCount; i++) {
 				//NS -- USE THE NEW FUNCTION THAT TAKES THE RAW Intent item
-				//items[i] = toJSONObject(contentResolver, clipData.getItemAt(i).getUri());
-				items[i] = toJSONObjectNS(contentResolver, clipData.getItemAt(i).getUri(), clipData.getItemAt(i)); //NS do the ".getUri()" in the function
+				//items[i] = toJSONObjectNS(contentResolver, clipData.getItemAt(i).getUri());
+				items[i] = toJSONObjectNS(contentResolver, clipData.getItemAt(i).getUri(), clipData.getItemAt(i));
+				//items[i] = toJSONObjectNS(contentResolver, clipData.getItemAt(i)); //NS do the ".getUri()" in the function
 			}
 			return new JSONArray(items);
 		}
