@@ -55,11 +55,34 @@ class Serializer {
 			final ContentResolver contentResolver,
 			ClipData.Item intentRaw) //NS exposed raw intent item
 			throws JSONException {
-			
+		
+		
+		//NS do ".getUri()" to re-create intent variable from original method
+		
+		//NS TEST1
+		//Intent intent = intentRaw.getUri(); 
+		// -- cannot convert Uri to Intent
+		
+		//NS TEST2
+		//Intent intent = new Intent();
+		//intent = intentRaw.getUri();
+		// -- cannot convert Uri to Intent
+		
+		//NS TEST3
 		//Uri intent = new Uri();
-		//intent = intentRaw.getUri(); //NS do ".getUri()" to re-create intent variable from original method
-		Intent intent = intentRaw; //NS do ".getUri()" to re-create intent variable from original method
-			
+		//intent = intentRaw.getUri();
+		// -- the code below is looking for an intent and errors with a uri
+		
+		//NS TEST4
+		//Intent intent = intentRaw;
+		// -- cannot convert item to intent
+		
+		//NS TEST4
+		Intent intent = new Intent(intentRaw.getUri());
+		// -- cannot convert item to intent
+		
+		
+		
 		JSONArray items = null;
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			items = itemsFromClipData(contentResolver, intent.getClipData());
