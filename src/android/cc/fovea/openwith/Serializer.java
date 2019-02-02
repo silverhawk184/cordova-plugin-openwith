@@ -77,9 +77,9 @@ class Serializer {
 		//Intent intent = intentRaw;
 		// -- cannot convert item to intent
 		
-		//NS TEST4
-		Intent intent = new Intent(intentRaw.getUri());
-		// -- cannot convert item to intent
+		//NS TEST5
+		//Intent intent = new Intent(intentRaw.getUri());
+		// -- error: no suitable constructor found for Intent(Uri)
 		
 		
 		
