@@ -56,7 +56,7 @@ class Serializer {
 			ClipData.Item intentRaw) //NS exposed raw intent item
 			throws JSONException {
 			
-		Intent intent = intentRaw.getUri(); //NS do ".getUri()" to re-create intent variable from original method
+		Uri intent = intentRaw.getUri(); //NS do ".getUri()" to re-create intent variable from original method
 			
 		JSONArray items = null;
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
