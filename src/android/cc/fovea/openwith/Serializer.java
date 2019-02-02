@@ -53,7 +53,7 @@ class Serializer {
 //NS------------DUPLICATE toJSONObject function so to expose the raw intent item -----------	
 	public static JSONObject toJSONObjectNS(
 			final ContentResolver contentResolver,
-			final Intent intent,
+			final Intent intent, //NS added for test 6
 			ClipData.Item intentRaw) //NS exposed raw intent item
 			throws JSONException {
 		
@@ -82,6 +82,9 @@ class Serializer {
 		//Intent intent = new Intent(intentRaw.getUri());
 		// -- error: no suitable constructor found for Intent(Uri)
 		
+		//NS TEST6
+		// see comments for changes (line 56 & 154)
+		// -- error: incompatible types: Uri cannot be converted to Intent on line 154
 		
 		
 		JSONArray items = null;
@@ -147,8 +150,9 @@ class Serializer {
 			for (int i = 0; i < clipItemCount; i++) {
 				//NS -- USE THE NEW FUNCTION THAT TAKES THE RAW Intent item
 				//items[i] = toJSONObjectNS(contentResolver, clipData.getItemAt(i).getUri());
-				items[i] = toJSONObjectNS(contentResolver, clipData.getItemAt(i).getUri(), clipData.getItemAt(i));
-				//items[i] = toJSONObjectNS(contentResolver, clipData.getItemAt(i)); //NS do the ".getUri()" in the function
+				//items[i] = toJSONObjectNS(contentResolver, clipData.getItemAt(i)); //NS (tests1-5) do the ".getUri()" in the function
+				items[i] = toJSONObjectNS(contentResolver, clipData.getItemAt(i).getUri(), clipData.getItemAt(i)); //NS (test 6)
+				
 			}
 			return new JSONArray(items);
 		}
